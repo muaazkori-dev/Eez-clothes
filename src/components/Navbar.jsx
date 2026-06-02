@@ -4,8 +4,8 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const { cartCount, openCart } = useCart();
-  const { openAuth, isLoggedIn } = useAuth();
+  const { cartCount, wishlist, openCart } = useCart();
+  const { openAuth } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -87,6 +87,14 @@ const Navbar = () => {
             <Link to="/shop" className="icon-btn hide-mobile">
               <i className="fas fa-search"></i>
             </Link>
+            <Link to="/wishlist" className="icon-btn hide-mobile">
+              <i className="far fa-heart"></i>
+              {wishlist.length > 0 && (
+                <span className="cart-count" style={{ backgroundColor: '#E63946' }}>
+                  {wishlist.length}
+                </span>
+              )}
+            </Link>
             <a 
               href="#" 
               className="icon-btn hide-mobile" 
@@ -102,7 +110,7 @@ const Navbar = () => {
               <i className="fas fa-shopping-bag"></i>
               <span className="cart-count">{cartCount}</span>
             </a>
-            <button className="mobile-toggle" onClick={toggleMobileMenu}>
+            <button class="mobile-toggle" onClick={toggleMobileMenu}>
               <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
             </button>
           </div>
@@ -124,6 +132,19 @@ const Navbar = () => {
         >
           <i className="fas fa-search"></i>
           <span>Shop</span>
+        </NavLink>
+        <NavLink 
+          to="/wishlist" 
+          className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          style={{ position: 'relative' }}
+        >
+          <i className="far fa-heart"></i>
+          {wishlist.length > 0 && (
+            <span className="cart-count" style={{ top: '-5px', right: '5px', backgroundColor: '#E63946' }}>
+              {wishlist.length}
+            </span>
+          )}
+          <span>Saved</span>
         </NavLink>
         <a 
           href="#" 

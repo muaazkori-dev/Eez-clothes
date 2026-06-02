@@ -2,21 +2,28 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-const ProductCard = ({ title, price, oldPrice, img, category, badge }) => {
-  const { addToCart } = useCart();
+const ProductCard = ({ id, title, price, oldPrice, img, category, badge }) => {
+  const { addToCart, toggleWishlist, isInWishlist } = useCart();
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    addToCart({ title, price, img });
+    addToCart({ id, title, price, img, category, badge });
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1000);
   };
 
+  const handleWishlistToggle = (e) => {
+    e.preventDefault();
+    toggleWishlist({ id, title, price, oldPrice, img, category, badge });
+  };
+
+  const isSaved = isInWishlist(title);
+
   return (
     <div className="product-card" data-category={category.toLowerCase()}>
       <div className="product-img">
-        <Link to="/product">
+        <Link to={`/product/${id}`}>
           <img src={img} alt={title} />
         </Link>
         {badge && (
@@ -25,10 +32,10 @@ const ProductCard = ({ title, price, oldPrice, img, category, badge }) => {
           </span>
         )}
         <div className="product-actions">
-          <button className="action-btn">
-            <i className="fas fa-heart"></i>
+          <button className="action-btn" onClick={handleWishlistToggle}>
+            <i className={`${isSaved ? 'fas' : 'far'} fa-heart`} style={{ color: isSaved ? '#E63946' : '' }}></i>
           </button>
-          <Link to="/product" className="action-btn">
+          <Link to={`/product/${id}`} className="action-btn">
             <i className="fas fa-eye"></i>
           </Link>
         </div>
@@ -36,7 +43,7 @@ const ProductCard = ({ title, price, oldPrice, img, category, badge }) => {
       <div className="product-info">
         <span className="category">{category}</span>
         <h3>
-          <Link to="/product">{title}</Link>
+          <Link to={`/product/${id}`}>{title}</Link>
         </h3>
         <div className="price-row">
           <span className="price">

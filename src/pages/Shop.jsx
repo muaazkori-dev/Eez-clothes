@@ -3,6 +3,9 @@ import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
 
 const Shop = () => {
+  // Search State
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Filters State
   const [selectedCategories, setSelectedCategories] = useState({
     Football: true,
@@ -16,7 +19,6 @@ const Shop = () => {
   const handleCategoryChange = (cat) => {
     setSelectedCategories((prev) => {
       const updated = { ...prev, [cat]: !prev[cat] };
-      // Check if all are false (we don't want empty selection if possible, or we just filter all out)
       return updated;
     });
   };
@@ -28,7 +30,10 @@ const Shop = () => {
       const categoryMatch = selectedCategories[p.category];
       // Price filter
       const priceMatch = p.price <= priceRange;
-      return categoryMatch && priceMatch;
+      // Search query filter
+      const searchMatch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return categoryMatch && priceMatch && searchMatch;
     });
 
     // Sorting
@@ -37,7 +42,6 @@ const Shop = () => {
     } else if (sortBy === 'Price: High to Low') {
       result.sort((a, b) => b.price - a.price);
     } else if (sortBy === 'Newest Arrivals') {
-      // Simulating by putting "New" badges first
       result.sort((a, b) => {
         if (a.badge === 'New' && b.badge !== 'New') return -1;
         if (a.badge !== 'New' && b.badge === 'New') return 1;
@@ -46,15 +50,45 @@ const Shop = () => {
     }
 
     return result;
-  }, [selectedCategories, priceRange, sortBy]);
+  }, [selectedCategories, priceRange, sortBy, searchQuery]);
 
   return (
     <div className="shop-page" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
       <div className="container">
-        <h1 style={{ marginBottom: '10px' }}>Shop All Collections</h1>
-        <p style={{ color: 'var(--text-light)', marginBottom: '40px' }}>
-          Explore our VIP range of premium shirts tailored for greatness.
-        </p>
+        
+        {/* Page Header and Search Row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap', gap: '20px' }}>
+          <div>
+            <h1 style={{ marginBottom: '10px' }}>Shop All Collections</h1>
+            <p style={{ color: 'var(--text-light)' }}>
+              Explore our VIP range of premium shirts tailored for greatness.
+            </p>
+          </div>
+          
+          <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
+            <input
+              type="text"
+              placeholder="Search shirts..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 20px 12px 40px',
+                borderRadius: '30px',
+                border: '1px solid var(--border-color)',
+                outline: 'none',
+                fontFamily: 'inherit',
+                background: 'var(--white)',
+                color: 'var(--text-main)',
+                fontSize: '0.95rem'
+              }}
+            />
+            <i 
+              className="fas fa-search" 
+              style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-light)' }}
+            />
+          </div>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px' }}>
           {/* Sidebar Filters */}
@@ -104,6 +138,7 @@ const Shop = () => {
                 setSelectedCategories({ Football: true, Cricket: true, 'T-Shirts': true });
                 setPriceRange(150);
                 setSortBy('Featured');
+                setSearchQuery('');
               }}
             >
               Reset Filters
@@ -132,6 +167,7 @@ const Shop = () => {
               {filteredAndSortedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
+                  id={product.id}
                   title={product.title}
                   price={product.price}
                   oldPrice={product.oldPrice}
@@ -143,7 +179,7 @@ const Shop = () => {
             </div>
             {filteredAndSortedProducts.length === 0 && (
               <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-light)' }}>
-                No products match the selected filters.
+                No products match your search or filters.
               </div>
             )}
           </div>

@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 const Checkout = () => {
-  const { cart, cartTotal, showToast } = useCart();
+  const { cart, cartTotal, showToast, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -34,12 +34,12 @@ const Checkout = () => {
       showToast('Your cart is empty');
       return;
     }
-    // Simulate payment success
-    alert('Order Placed! Thank you for shopping with Eez Clothes VIP.');
     
-    // In a real app we'd clear the cart, let's refresh or clear state
+    // Clear cart context and localstorage
+    clearCart();
+    
     showToast('Order Placed Successfully!');
-    navigate('/dashboard');
+    navigate('/order-success');
   };
 
   const finalTotal = Math.max(0, cartTotal - appliedDiscount);

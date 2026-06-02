@@ -5,9 +5,28 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  // Load initial cart and wishlist from localStorage
+  const [cart, setCart] = useState(() => {
+    const localCart = localStorage.getItem('cart');
+    return localCart ? JSON.parse(localCart) : [];
+  });
+  const [wishlist, setWishlist] = useState(() => {
+    const localWish = localStorage.getItem('wishlist');
+    return localWish ? JSON.parse(localWish) : [];
+  });
+  
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toast, setToast] = useState(null);
+
+  // Sync cart to localStorage
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  // Sync wishlist to localStorage
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
 
   const showToast = (message) => {
     setToast(message);
@@ -60,6 +79,28 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  // Wishlist Actions
+  const toggleWishlist = (item) => {
+    setWishlist((prevWishlist) => {
+      const exists = prevWishlist.find((w) => w.title === item.title);
+      if (exists) {
+        showToast(`Removed from Wishlist`);
+        return prevWishlist.filter((w) => w.title !== item.title);
+      } else {
+        showToast(`Added to Wishlist!`);
+        return [...prevWishlist, item];
+      }
+    });
+  };
+
+  const isInWishlist = (title) => {
+    return wishlist.some((w) => w.title === title);
+  };
+
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -67,6 +108,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cart,
+        wishlist,
         isCartOpen,
         toast,
         openCart,
@@ -74,6 +116,9 @@ export const CartProvider = ({ children }) => {
         addToCart,
         updateQty,
         removeItem,
+        clearCart,
+        toggleWishlist,
+        isInWishlist,
         cartCount,
         cartTotal,
         showToast,
@@ -81,7 +126,7 @@ export const CartProvider = ({ children }) => {
     >
       {children}
       {toast && (
-        <div id="toast-container">
+        <div id="toast-container" style={{ zIndex: 9999 }}>
           <div className="toast show">
             <i className="fas fa-check-circle"></i> <span>{toast}</span>
           </div>

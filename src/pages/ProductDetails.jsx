@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { products } from '../data/products';
 
 const ProductDetails = () => {
-  const { addToCart, openCart, showToast } = useCart();
+  const { id } = useParams();
+  const { addToCart, openCart, showToast, toggleWishlist, isInWishlist } = useCart();
 
-  // Product Data
+  // Find dynamic product, fallback to first product if not found
+  const product = products.find((p) => p.id === parseInt(id)) || products[0];
+
+  const categoryLower = product.category.toLowerCase();
+
+  // Generate dynamic product data matching the clicked item
   const productData = {
-    title: 'Classic Plaid Flannel',
-    price: 45.00,
-    desc: 'The ultimate comfort piece for your everyday wardrobe. This premium flannel shirt features an exceptionally soft feel, tailored fit, and a timeless plaid pattern.',
+    title: product.title,
+    price: product.price,
+    oldPrice: product.oldPrice,
+    desc: categoryLower === 'football'
+      ? `Show your support with the official ${product.title}. Crafted from premium breathable fabrics with athletic tailoring for ultimate comfort on and off the pitch.`
+      : categoryLower === 'cricket'
+      ? `Engineered for excellence, the official ${product.title} features quick-dry ventilation, high-durability double-stitch seams, and official team logos.`
+      : `Elevate your streetwear game with the ${product.title}. Made from 100% long-staple pima cotton for unparalleled softness and a modern fit.`,
     images: [
-      'https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800',
+      product.img,
       'https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800',
       'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800'
     ],
-    colors: [
-      { name: 'Red', hex: '#A03B3B', img: 'https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800' },
-      { name: 'Blue', hex: '#2D4356', img: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800' }
+    colors: categoryLower === 't-shirts' ? [
+      { name: 'Default', hex: '#212529', img: product.img },
+      { name: 'Navy Blue', hex: '#2D4356', img: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800' }
+    ] : [
+      { name: 'Primary Kit', hex: '#004AAD', img: product.img },
+      { name: 'Alternative Kit', hex: '#6C757D', img: 'https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800' }
     ],
     sizes: ['S', 'M', 'L', 'XL']
   };
@@ -27,8 +42,14 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
+  // Sync state if dynamic ID changes
+  useEffect(() => {
+    setActiveImage(product.img);
+    setSelectedColor(0);
+    setQuantity(1);
+  }, [id, product]);
 
   // Handlers
   const handleColorChange = (index) => {
@@ -49,18 +70,16 @@ const ProductDetails = () => {
       img: activeImage,
     };
 
-    // Since our context addToCart adds 1 by default, let's call it 'quantity' times or modify it
     for (let i = 0; i < quantity; i++) {
       addToCart(finalProduct);
     }
-    
-    // We already openCart and showToast inside addToCart context!
   };
 
-  const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-    showToast(isWishlisted ? 'Removed from Wishlist' : 'Added to Wishlist!');
+  const handleWishlistToggle = () => {
+    toggleWishlist(product);
   };
+
+  const isSaved = isInWishlist(product.title);
 
   return (
     <div className="product-page" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
@@ -115,7 +134,16 @@ const ProductDetails = () => {
           </div>
 
           <h2 className="product-price" style={{ fontSize: '1.8rem', color: 'var(--action-color)', marginBottom: '16px' }}>
-            ${productData.price.toFixed(2)}
+            {productData.oldPrice ? (
+              <>
+                <del style={{ color: 'var(--text-light)', fontSize: '1.3rem', marginRight: '10px' }}>
+                  ${productData.oldPrice.toFixed(2)}
+                </del>
+                ${productData.price.toFixed(2)}
+              </>
+            ) : (
+              `$${productData.price.toFixed(2)}`
+            )}
           </h2>
           
           <p className="product-desc" style={{ color: 'var(--text-light)', marginBottom: '24px' }}>
@@ -183,7 +211,7 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          {/* Action Row (Quantity & Cart & Wishlist) */}
+          {/* Action Row */}
           <div className="action-group" style={{ display: 'flex', gap: '16px', marginBottom: '40px' }}>
             <div className="qty-selector" style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-color)', borderRadius: '50px', padding: '5px 15px' }}>
               <button 
@@ -216,10 +244,10 @@ const ProductDetails = () => {
             </button>
             <button 
               className="btn btn-outline wishlist-btn-lg" 
-              onClick={toggleWishlist}
+              onClick={handleWishlistToggle}
               style={{ width: '50px', padding: 0 }}
             >
-              <i className={`${isWishlisted ? 'fas' : 'far'} fa-heart`} style={{ color: isWishlisted ? '#E63946' : '' }}></i>
+              <i className={`${isSaved ? 'fas' : 'far'} fa-heart`} style={{ color: isSaved ? '#E63946' : '' }}></i>
             </button>
           </div>
 
@@ -237,9 +265,9 @@ const ProductDetails = () => {
               {isAccordionOpen && (
                 <div className="accordion-body" style={{ paddingTop: '12px', color: 'var(--text-light)', fontSize: '0.95rem' }}>
                   <ul style={{ paddingLeft: '20px' }}>
-                    <li>100% Premium Cotton</li>
-                    <li>Slim Fit Design</li>
-                    <li>Button-down collar</li>
+                    <li>Official Merchandise</li>
+                    <li>Slim Athletic Fit</li>
+                    <li>Sweat-wicking cooling fabric</li>
                     <li>Machine washable</li>
                   </ul>
                 </div>
