@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eez Clothes | VIP Premium Shirts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Navbar -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Eez<span>Clothes</span></a>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="dashboard.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="shop.html" class="icon-btn hide-mobile"><i class="fas fa-search"></i></a>
+                <a href="#" class="icon-btn hide-mobile auth-trigger"><i class="fas fa-user"></i></a>
+                <a href="#" class="icon-btn cart-btn hide-mobile cart-trigger">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay"></div>
+    <div class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart (<span class="cart-count-drawer">0</span>)</h2>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal</span>
+                <span class="total-price" id="cart-total-price">$0.00</span>
+            </div>
+            <p class="shipping-msg">Shipping & taxes calculated at checkout</p>
+            <a href="checkout.html" class="btn btn-primary checkout-btn disabled" style="width: 100%;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div class="auth-modal-overlay"></div>
+    <div class="auth-modal">
+        <button class="close-modal"><i class="fas fa-times"></i></button>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+        <div class="auth-content active" id="login-tab">
+            <h2>Welcome Back</h2>
+            <p>Enter your details to access your VIP account.</p>
+            <form class="auth-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <div class="auth-options">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#" class="forgot-pw">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+        <div class="auth-content" id="signup-tab">
+            <h2>Create Account</h2>
+            <p>Join the VIP club today.</p>
+            <form class="auth-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%207?width=600&height=800&nologo=true" alt="Premium Menswear Background">
+            <div class="overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <span class="subtitle">New Collection</span>
+            <h1>Elevate Your Everyday Style</h1>
+            <p>Discover our premium selection of shirts crafted for the modern man. Experience unparalleled comfort and VIP aesthetics.</p>
+            <div class="hero-btns">
+                <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                <a href="shop.html" class="btn btn-secondary">View Collections</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container features-grid">
+            <div class="feature-card">
+                <div class="icon"><i class="fas fa-gem"></i></div>
+                <h3>Premium Fabrics</h3>
+                <p>Sourced from the finest materials worldwide for ultimate comfort.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+                <h3>Perfect Fit</h3>
+                <p>Tailored to perfection, offering a sharp silhouette for every body type.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon"><i class="fas fa-shipping-fast"></i></div>
+                <h3>Fast Shipping</h3>
+                <p>Complimentary express delivery on all VIP orders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon"><i class="fas fa-undo-alt"></i></div>
+                <h3>Easy Returns</h3>
+                <p>Hassle-free 30-day return policy for your peace of mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="shop" id="shop">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Selection</h2>
+                <p>Our most sought-after pieces, designed for distinction.</p>
+            </div>
+
+            <div class="product-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="football">Football</button>
+                <button class="filter-btn" data-filter="cricket">Cricket</button>
+                <button class="filter-btn" data-filter="t-shirts">T-Shirts</button>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Real%20Madrid%20home%20jersey%202024%20design%2C%20white%20color%20with%20gold%20details%2C%20premium%20fabric%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Real Madrid Jersey"></a><span class="badge">New</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Real Madrid Home Jersey 24</a></h3><div class="price-row"><span class="price">$85.00</span><button class="add-to-cart" data-title="Real Madrid Home Jersey 24" data-price="85.00" data-img="https://image.pollinations.ai/prompt/Real%20Madrid%20home%20jersey%202024%20design%2C%20white%20color%20with%20gold%20details%2C%20premium%20fabric%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Manchester%20City%20away%20kit%20jersey%2C%20sky%20blue%20and%20maroon%20details%2C%20modern%20football%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Man City Jersey"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Man City Away Kit</a></h3><div class="price-row"><span class="price">$80.00</span><button class="add-to-cart" data-title="Man City Away Kit" data-price="80.00" data-img="https://image.pollinations.ai/prompt/Manchester%20City%20away%20kit%20jersey%2C%20sky%20blue%20and%20maroon%20details%2C%20modern%20football%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Brazil%20national%20football%20team%20jersey%2C%20yellow%20and%20green%2C%20iconic%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Brazil Jersey"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Brazil National Jersey</a></h3><div class="price-row"><span class="price">$75.00</span><button class="add-to-cart" data-title="Brazil National Jersey" data-price="75.00" data-img="https://image.pollinations.ai/prompt/Brazil%20national%20football%20team%20jersey%2C%20yellow%20and%20green%2C%20iconic%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/PSG%20training%20top%20football%20shirt%2C%20dark%20blue%20and%20red%2C%20stylish%20sportswear%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="PSG Training Shirt"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">PSG Elite Training Top</a></h3><div class="price-row"><span class="price"><del>$70.00</del> $55.00</span><button class="add-to-cart" data-title="PSG Elite Training Top" data-price="55.00" data-img="https://image.pollinations.ai/prompt/PSG%20training%20top%20football%20shirt%2C%20dark%20blue%20and%20red%2C%20stylish%20sportswear%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 5 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Liverpool%20classic%20retro%20football%20jersey%2C%20deep%20red%20with%20white%20collar%2C%20vintage%20style%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Liverpool Retro"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Liverpool Retro Classic</a></h3><div class="price-row"><span class="price">$90.00</span><button class="add-to-cart" data-title="Liverpool Retro Classic" data-price="90.00" data-img="https://image.pollinations.ai/prompt/Liverpool%20classic%20retro%20football%20jersey%2C%20deep%20red%20with%20white%20collar%2C%20vintage%20style%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 6 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Barcelona%20third%20kit%20jersey%2C%20light%20blue%20and%20garnet%2C%20modern%20pattern%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Barca Third Kit"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Barcelona Third Kit</a></h3><div class="price-row"><span class="price">$82.00</span><button class="add-to-cart" data-title="Barcelona Third Kit" data-price="82.00" data-img="https://image.pollinations.ai/prompt/Barcelona%20third%20kit%20jersey%2C%20light%20blue%20and%20garnet%2C%20modern%20pattern%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 7 -->
+                <div class="product-card" data-category="football">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Argentina%20World%20Cup%20jersey%203%20stars%2C%20sky%20blue%20and%20white%20stripes%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Argentina Jersey"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Argentina WC Special</a></h3><div class="price-row"><span class="price">$95.00</span><button class="add-to-cart" data-title="Argentina WC Special" data-price="95.00" data-img="https://image.pollinations.ai/prompt/Argentina%20World%20Cup%20jersey%203%20stars%2C%20sky%20blue%20and%20white%20stripes%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Pakistan%20national%20cricket%20team%20T20%20jersey%2C%20dark%20green%2C%20modern%20sublimation%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Pakistan Cricket"></a><span class="badge">New</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Pakistan T20 Jersey</a></h3><div class="price-row"><span class="price">$55.00</span><button class="add-to-cart" data-title="Pakistan T20 Jersey" data-price="55.00" data-img="https://image.pollinations.ai/prompt/Pakistan%20national%20cricket%20team%20T20%20jersey%2C%20dark%20green%2C%20modern%20sublimation%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 9 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/India%20national%20cricket%20team%20ODI%20blue%20jersey%2C%20premium%20fabric%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="India Cricket"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">India Blue ODI Shirt</a></h3><div class="price-row"><span class="price">$55.00</span><button class="add-to-cart" data-title="India Blue ODI Shirt" data-price="55.00" data-img="https://image.pollinations.ai/prompt/India%20national%20cricket%20team%20ODI%20blue%20jersey%2C%20premium%20fabric%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 10 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Australia%20Ashes%20test%20cricket%20white%20jersey%2C%20classic%20collar%2C%20clean%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Australia Test"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Australia Ashes Test</a></h3><div class="price-row"><span class="price">$65.00</span><button class="add-to-cart" data-title="Australia Ashes Test" data-price="65.00" data-img="https://image.pollinations.ai/prompt/Australia%20Ashes%20test%20cricket%20white%20jersey%2C%20classic%20collar%2C%20clean%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 11 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/South%20Africa%20national%20cricket%20team%20jersey%2C%20green%20and%20yellow%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="SA Cricket"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Proteas Official Kit</a></h3><div class="price-row"><span class="price"><del>$60.00</del> $45.00</span><button class="add-to-cart" data-title="Proteas Official Kit" data-price="45.00" data-img="https://image.pollinations.ai/prompt/South%20Africa%20national%20cricket%20team%20jersey%2C%20green%20and%20yellow%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 12 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/England%20T20%20cricket%20jersey%2C%20red%20and%20blue%2C%20modern%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="England Cricket"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">England T20 Jersey</a></h3><div class="price-row"><span class="price">$60.00</span><button class="add-to-cart" data-title="England T20 Jersey" data-price="60.00" data-img="https://image.pollinations.ai/prompt/England%20T20%20cricket%20jersey%2C%20red%20and%20blue%2C%20modern%20design%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 13 -->
+                <div class="product-card" data-category="cricket">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/New%20Zealand%20national%20cricket%20team%20black%20caps%20jersey%2C%20black%20color%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="NZ Cricket"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Black Caps ODI Shirt</a></h3><div class="price-row"><span class="price">$55.00</span><button class="add-to-cart" data-title="Black Caps ODI Shirt" data-price="55.00" data-img="https://image.pollinations.ai/prompt/New%20Zealand%20national%20cricket%20team%20black%20caps%20jersey%2C%20black%20color%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+
+                <!-- Product 14 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Minimalist%20urban%20oversized%20t-shirt%2C%20beige%20color%2C%20streetwear%20fashion%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Oversized Tee"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Urban Oversized Tee</a></h3><div class="price-row"><span class="price">$35.00</span><button class="add-to-cart" data-title="Urban Oversized Tee" data-price="35.00" data-img="https://image.pollinations.ai/prompt/Minimalist%20urban%20oversized%20t-shirt%2C%20beige%20color%2C%20streetwear%20fashion%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 15 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Vintage%20graphic%20rock%20t-shirt%2C%20washed%20black%2C%20cool%20print%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Graphic Tee"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Vintage Graphic Tee</a></h3><div class="price-row"><span class="price">$40.00</span><button class="add-to-cart" data-title="Vintage Graphic Tee" data-price="40.00" data-img="https://image.pollinations.ai/prompt/Vintage%20graphic%20rock%20t-shirt%2C%20washed%20black%2C%20cool%20print%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 16 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Premium%20pima%20cotton%20polo%20shirt%2C%20navy%20blue%2C%20classic%20fit%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Polo Shirt"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Premium Pima Polo</a></h3><div class="price-row"><span class="price">$50.00</span><button class="add-to-cart" data-title="Premium Pima Polo" data-price="50.00" data-img="https://image.pollinations.ai/prompt/Premium%20pima%20cotton%20polo%20shirt%2C%20navy%20blue%2C%20classic%20fit%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 17 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Midnight%20black%20slim%20fit%20t-shirt%2C%20minimalist%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Black Tee"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Midnight Slim Tee</a></h3><div class="price-row"><span class="price">$25.00</span><button class="add-to-cart" data-title="Midnight Slim Tee" data-price="25.00" data-img="https://image.pollinations.ai/prompt/Midnight%20black%20slim%20fit%20t-shirt%2C%20minimalist%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 18 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Sunset%20gradient%20summer%20t-shirt%2C%20vibrant%20colors%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Summer Tee"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Sunset Summer Tee</a></h3><div class="price-row"><span class="price"><del>$35.00</del> $28.00</span><button class="add-to-cart" data-title="Sunset Summer Tee" data-price="28.00" data-img="https://image.pollinations.ai/prompt/Sunset%20gradient%20summer%20t-shirt%2C%20vibrant%20colors%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 19 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Abstract%20art%20streetwear%20t-shirt%2C%20cool%20print%2C%20modern%20fashion%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="Abstract Tee"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Abstract Art Tee</a></h3><div class="price-row"><span class="price">$45.00</span><button class="add-to-cart" data-title="Abstract Art Tee" data-price="45.00" data-img="https://image.pollinations.ai/prompt/Abstract%20art%20streetwear%20t-shirt%2C%20cool%20print%2C%20modern%20fashion%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+                <!-- Product 20 -->
+                <div class="product-card" data-category="t-shirts">
+                    <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/Essential%20white%20crew%20neck%20t-shirt%2C%20premium%20cotton%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true" alt="White Tee"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                    <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Essential White Tee</a></h3><div class="price-row"><span class="price">$20.00</span><button class="add-to-cart" data-title="Essential White Tee" data-price="20.00" data-img="https://image.pollinations.ai/prompt/Essential%20white%20crew%20neck%20t-shirt%2C%20premium%20cotton%2C%20realistic%20photo%2C%20white%20background?width=400&height=500&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                </div>
+
+            </div>
+            
+            <div class="view-all-container">
+                <a href="shop.html" class="btn btn-outline">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="promotional-banner">
+        <div class="container">
+            <div class="banner-content">
+                <h2>The VIP Member Experience</h2>
+                <p>Join our exclusive club for early access to new releases, special discounts, and personalized style advice.</p>
+                <a href="#" class="btn btn-primary auth-trigger">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container newsletter-inner">
+            <div class="newsletter-text">
+                <h2>Stay in the Loop</h2>
+                <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+            </div>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo">Eez<span>Clothes</span></a>
+                <p>Redefining modern menswear with premium fabrics and impeccable designs. Your style, elevated.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">New Arrivals</a></li>
+                    <li><a href="shop.html">Casual Shirts</a></li>
+                    <li><a href="shop.html">Formal Shirts</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="dashboard.html">My Account</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Eez Clothes. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="nav-item">
+            <i class="fas fa-search"></i>
+            <span>Shop</span>
+        </a>
+        <a href="#" class="nav-item cart-nav cart-trigger">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+            <span>Cart</span>
+        </a>
+        <a href="#" class="nav-item auth-trigger">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Eez Clothes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Navbar -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Eez<span>Clothes</span></a>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html" class="active">Shop</a></li>
+                    <li><a href="dashboard.html">Account</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="shop.html" class="icon-btn hide-mobile"><i class="fas fa-search"></i></a>
+                <a href="#" class="icon-btn hide-mobile auth-trigger"><i class="fas fa-user"></i></a>
+                <a href="#" class="icon-btn cart-btn hide-mobile cart-trigger">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay"></div>
+    <div class="cart-drawer">
+        <div class="cart-header">
+            <h2>Your Cart (<span class="cart-count-drawer">0</span>)</h2>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal</span>
+                <span class="total-price" id="cart-total-price">$0.00</span>
+            </div>
+            <p class="shipping-msg">Shipping & taxes calculated at checkout</p>
+            <a href="checkout.html" class="btn btn-primary checkout-btn disabled" style="width: 100%;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div class="auth-modal-overlay"></div>
+    <div class="auth-modal">
+        <button class="close-modal"><i class="fas fa-times"></i></button>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+        <div class="auth-content active" id="login-tab">
+            <h2>Welcome Back</h2>
+            <form class="auth-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+        <div class="auth-content" id="signup-tab">
+            <h2>Create Account</h2>
+            <form class="auth-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <div class="shop-page" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="container">
+            <h1 style="margin-bottom: 10px;">Shop All Collections</h1>
+            <p style="color: var(--text-light); margin-bottom: 40px;">Explore our VIP range of premium shirts tailored for greatness.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+                <!-- Sidebar Filters -->
+                <div class="filters-sidebar" style="min-width: 250px;">
+                    <h3 style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">Filters</h3>
+                    
+                    <div class="filter-group" style="margin-bottom: 24px;">
+                        <h4 style="margin-bottom: 12px;">Category</h4>
+                        <label style="display: block; margin-bottom: 8px; color: var(--text-light); cursor: pointer;"><input type="checkbox" checked> All Shirts</label>
+                        <label style="display: block; margin-bottom: 8px; color: var(--text-light); cursor: pointer;"><input type="checkbox"> Casual</label>
+                        <label style="display: block; margin-bottom: 8px; color: var(--text-light); cursor: pointer;"><input type="checkbox"> Formal</label>
+                    </div>
+
+                    <div class="filter-group" style="margin-bottom: 24px;">
+                        <h4 style="margin-bottom: 12px;">Price Range</h4>
+                        <input type="range" min="20" max="150" value="150" style="width: 100%;">
+                        <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 0.9rem; margin-top: 8px;">
+                            <span>$20</span>
+                            <span>$150+</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" style="width: 100%;">Apply Filters</button>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="shop-main" style="flex: 1;">
+                    <div class="shop-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+                        <span style="color: var(--text-light);">Showing 1-4 of 24 results</span>
+                        <select style="padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 30px; font-family: inherit; outline: none;">
+                            <option>Sort by: Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Newest Arrivals</option>
+                        </select>
+                    </div>
+
+                    <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px;">
+                        <!-- Product 1 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%207?width=600&height=800&nologo=true" alt="Football Shirt 1"></a><span class="badge">New</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Pro Football Jersey 1</a></h3><div class="price-row"><span class="price">$45.00</span><button class="add-to-cart" data-title="Pro Football Jersey 1" data-price="45.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%201?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 2 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 2"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Home Kit Jersey 2</a></h3><div class="price-row"><span class="price">$45.00</span><button class="add-to-cart" data-title="Home Kit Jersey 2" data-price="45.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%202?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 3 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 3"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Away Kit Jersey 3</a></h3><div class="price-row"><span class="price">$50.00</span><button class="add-to-cart" data-title="Away Kit Jersey 3" data-price="50.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%203?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 4 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 4"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Training Shirt 4</a></h3><div class="price-row"><span class="price"><del>$45.00</del> $35.00</span><button class="add-to-cart" data-title="Training Shirt 4" data-price="35.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%204?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 5 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 5"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Retro Jersey 5</a></h3><div class="price-row"><span class="price">$55.00</span><button class="add-to-cart" data-title="Retro Jersey 5" data-price="55.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%205?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 6 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 6"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Goalkeeper Shirt 6</a></h3><div class="price-row"><span class="price">$50.00</span><button class="add-to-cart" data-title="Goalkeeper Shirt 6" data-price="50.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%206?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 7 -->
+                        <div class="product-card" data-category="football">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Football Shirt 7"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Football</span><h3><a href="product.html">Kids Football Kit 7</a></h3><div class="price-row"><span class="price">$35.00</span><button class="add-to-cart" data-title="Kids Football Kit 7" data-price="35.00" data-img="https://image.pollinations.ai/prompt/premium%20stylish%20football%20club%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%207?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        
+                        <!-- Product 8 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 1"></a><span class="badge">New</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Official Cricket Kit 1</a></h3><div class="price-row"><span class="price">$55.00</span><button class="add-to-cart" data-title="Official Cricket Kit 1" data-price="55.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%201?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 9 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 2"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Test Match Shirt 2</a></h3><div class="price-row"><span class="price">$50.00</span><button class="add-to-cart" data-title="Test Match Shirt 2" data-price="50.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%202?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 10 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 3"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">T20 Jersey 3</a></h3><div class="price-row"><span class="price">$45.00</span><button class="add-to-cart" data-title="T20 Jersey 3" data-price="45.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%203?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 11 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 4"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">ODI Kit 4</a></h3><div class="price-row"><span class="price"><del>$65.00</del> $45.00</span><button class="add-to-cart" data-title="ODI Kit 4" data-price="45.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%204?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 12 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 5"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Training Cricket Shirt 5</a></h3><div class="price-row"><span class="price">$30.00</span><button class="add-to-cart" data-title="Training Cricket Shirt 5" data-price="30.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%205?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 13 -->
+                        <div class="product-card" data-category="cricket">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cricket Shirt 6"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">Cricket</span><h3><a href="product.html">Premium Cricket Kit 6</a></h3><div class="price-row"><span class="price">$60.00</span><button class="add-to-cart" data-title="Premium Cricket Kit 6" data-price="60.00" data-img="https://image.pollinations.ai/prompt/official%20national%20cricket%20team%20jersey%20shirt%2C%20modern%20design%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%206?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+
+                        <!-- Product 14 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 1"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Comfort Home T-Shirt 1</a></h3><div class="price-row"><span class="price">$25.00</span><button class="add-to-cart" data-title="Comfort Home T-Shirt 1" data-price="25.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%201?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 15 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 2"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Graphic Printed T-Shirt 2</a></h3><div class="price-row"><span class="price">$30.00</span><button class="add-to-cart" data-title="Graphic Printed T-Shirt 2" data-price="30.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%202?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 16 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 3"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Plain Black T-Shirt 3</a></h3><div class="price-row"><span class="price">$20.00</span><button class="add-to-cart" data-title="Plain Black T-Shirt 3" data-price="20.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%203?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 17 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 4"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">V-Neck Summer T-Shirt 4</a></h3><div class="price-row"><span class="price">$22.00</span><button class="add-to-cart" data-title="V-Neck Summer T-Shirt 4" data-price="22.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%204?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 18 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 5"></a><span class="badge sale">Sale</span><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Oversized T-Shirt 5</a></h3><div class="price-row"><span class="price"><del>$35.00</del> $25.00</span><button class="add-to-cart" data-title="Oversized T-Shirt 5" data-price="25.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%205?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 19 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 6"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Polo T-Shirt 6</a></h3><div class="price-row"><span class="price">$40.00</span><button class="add-to-cart" data-title="Polo T-Shirt 6" data-price="40.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%206?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                        <!-- Product 20 -->
+                        <div class="product-card" data-category="t-shirts">
+                            <div class="product-img"><a href="product.html"><img src="https://images.pexels.com/photos/2112651/pexels-photo-2112651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="T-Shirt 7"></a><div class="product-actions"><button class="action-btn"><i class="fas fa-heart"></i></button><button class="action-btn"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="product-info"><span class="category">T-Shirts</span><h3><a href="product.html">Essential White T-Shirt 7</a></h3><div class="price-row"><span class="price">$18.00</span><button class="add-to-cart" data-title="Essential White T-Shirt 7" data-price="18.00" data-img="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%207?width=300&height=400&nologo=true"><i class="fas fa-plus"></i></button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo">Eez<span>Clothes</span></a>
+                <p>Redefining modern menswear with premium fabrics and impeccable designs. Your style, elevated.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">New Arrivals</a></li>
+                    <li><a href="shop.html">Casual Shirts</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="dashboard.html">My Account</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="nav-item active">
+            <i class="fas fa-search"></i>
+            <span>Shop</span>
+        </a>
+        <a href="#" class="nav-item cart-nav cart-trigger">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+            <span>Cart</span>
+        </a>
+        <a href="#" class="nav-item auth-trigger">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

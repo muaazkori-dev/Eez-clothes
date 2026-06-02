@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Eez Clothes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container" style="justify-content: center;">
+            <a href="index.html" class="logo">Eez<span>Clothes</span></a>
+        </div>
+    </header>
+
+    <div class="checkout-page" style="padding-top: 120px; padding-bottom: 100px; background: var(--hover-bg);">
+        <div class="container" style="max-width: 1000px;">
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;">
+                <div class="checkout-form-container" style="background: var(--white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-sm);">
+                    <h2 style="margin-bottom: 24px;">Checkout</h2>
+                    
+                    <h3 style="margin-bottom: 16px; font-size: 1.1rem;">Contact Information</h3>
+                    <div style="margin-bottom: 24px;">
+                        <input type="email" placeholder="Email" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; margin-bottom: 12px; outline: none;">
+                        <label style="font-size: 0.9rem; color: var(--text-light);"><input type="checkbox"> Email me with news and offers</label>
+                    </div>
+
+                    <h3 style="margin-bottom: 16px; font-size: 1.1rem;">Shipping Address</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                        <input type="text" placeholder="First Name" style="padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+                        <input type="text" placeholder="Last Name" style="padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+                    </div>
+                    <input type="text" placeholder="Address" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; margin-bottom: 12px; outline: none;">
+                    <input type="text" placeholder="City" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; margin-bottom: 24px; outline: none;">
+
+                    <h3 style="margin-bottom: 16px; font-size: 1.1rem;">Payment</h3>
+                    <div style="border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 24px; background: #fafafa;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+                            <input type="radio" name="payment" checked> <span>Credit Card</span>
+                        </div>
+                        <input type="text" placeholder="Card Number" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; margin-bottom: 12px; outline: none;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <input type="text" placeholder="MM/YY" style="padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+                            <input type="text" placeholder="CVC" style="padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1.1rem;" onclick="alert('Order Placed! Thank you for shopping with Eez Clothes VIP.'); window.location.href='dashboard.html';">Pay Now</button>
+                </div>
+
+                <div class="checkout-summary">
+                    <div style="background: var(--white); padding: 30px; border-radius: 16px; box-shadow: var(--shadow-sm); position: sticky; top: 100px;">
+                        <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                        <div id="checkout-items" style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+                                <div style="display: flex; gap: 15px;">
+                                    <img src="https://images.pexels.com/photos/3785424/pexels-photo-3785424.jpeg?auto=compress&cs=tinysrgb&w=100" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                                    <div>
+                                        <p style="font-weight: 600;">Classic Plaid Flannel</p>
+                                        <p style="font-size: 0.85rem; color: var(--text-light);">Size: M</p>
+                                    </div>
+                                </div>
+                                <span style="font-weight: 600;">$45.00</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+                            <input type="text" placeholder="Discount Code" style="flex: 1; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; outline: none;">
+                            <button class="btn btn-secondary" style="padding: 12px 20px;">Apply</button>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--text-light);">
+                            <span>Subtotal</span>
+                            <span>$45.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--text-light); border-bottom: 1px solid var(--border-color); padding-bottom: 20px;">
+                            <span>Shipping</span>
+                            <span>Free VIP</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700;">
+                            <span>Total</span>
+                            <span>$45.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
