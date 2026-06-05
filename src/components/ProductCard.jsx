@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 const ProductCard = ({ id, title, price, oldPrice, img, category, badge }) => {
   const { addToCart, toggleWishlist, isInWishlist } = useCart();
   const [isAdded, setIsAdded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -24,7 +25,25 @@ const ProductCard = ({ id, title, price, oldPrice, img, category, badge }) => {
     <div className="product-card" data-category={category.toLowerCase()}>
       <div className="product-img">
         <Link to={`/product/${id}`}>
-          <img src={img} alt={title} />
+          {imgError ? (
+            <div className="fallback-placeholder" style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)',
+              color: '#495057',
+              textAlign: 'center',
+              padding: '20px'
+            }}>
+              <i className="fas fa-shirt" style={{ fontSize: '2.5rem', marginBottom: '10px', color: '#004AAD' }}></i>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>{category}</span>
+            </div>
+          ) : (
+            <img src={img} alt={title} onError={() => setImgError(true)} />
+          )}
         </Link>
         {badge && (
           <span className={`badge ${badge.toLowerCase() === 'sale' ? 'sale' : ''}`}>

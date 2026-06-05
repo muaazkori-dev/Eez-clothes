@@ -18,7 +18,7 @@ const Home = () => {
       <section className="hero">
         <div className="hero-bg">
           <img 
-            src="https://image.pollinations.ai/prompt/premium%20modern%20casual%20t-shirt%20clothing%2C%20isolated%20on%20white%20background%2C%20cinematic%20studio%20lighting%2C%20high%20resolution%2C%20realistic%20photo%2C%20style%207?width=600&height=800&nologo=true" 
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&auto=format&fit=crop&q=80" 
             alt="Premium Menswear Background" 
           />
           <div className="overlay"></div>

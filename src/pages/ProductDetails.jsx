@@ -39,6 +39,7 @@ const ProductDetails = () => {
 
   // State
   const [activeImage, setActiveImage] = useState(productData.images[0]);
+  const [activeImageError, setActiveImageError] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
@@ -47,6 +48,7 @@ const ProductDetails = () => {
   // Sync state if dynamic ID changes
   useEffect(() => {
     setActiveImage(product.img);
+    setActiveImageError(false);
     setSelectedColor(0);
     setQuantity(1);
   }, [id, product]);
@@ -55,6 +57,7 @@ const ProductDetails = () => {
   const handleColorChange = (index) => {
     setSelectedColor(index);
     setActiveImage(productData.colors[index].img);
+    setActiveImageError(false);
   };
 
   const handleQtyChange = (val) => {
@@ -87,12 +90,33 @@ const ProductDetails = () => {
         
         {/* Product Gallery */}
         <div className="product-gallery">
-          <img 
-            id="main-product-img" 
-            src={activeImage} 
-            alt={productData.title} 
-            style={{ width: '100%', borderRadius: '12px', marginBottom: '16px', transition: 'opacity 0.15s ease' }} 
-          />
+          {activeImageError ? (
+            <div className="fallback-placeholder" style={{
+              width: '100%',
+              aspectRatio: '1/1',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)',
+              color: '#495057',
+              borderRadius: '12px',
+              marginBottom: '16px',
+              textAlign: 'center',
+              padding: '20px'
+            }}>
+              <i className="fas fa-shirt" style={{ fontSize: '4rem', marginBottom: '15px', color: '#004AAD' }}></i>
+              <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>{productData.title}</span>
+            </div>
+          ) : (
+            <img 
+              id="main-product-img" 
+              src={activeImage} 
+              alt={productData.title} 
+              onError={() => setActiveImageError(true)}
+              style={{ width: '100%', borderRadius: '12px', marginBottom: '16px', transition: 'opacity 0.15s ease' }} 
+            />
+          )}
           <div className="thumbnail-list" style={{ display: 'flex', gap: '12px', overflowX: 'auto' }}>
             {productData.images.map((img, i) => (
               <img
@@ -100,7 +124,7 @@ const ProductDetails = () => {
                 className={`thumb ${activeImage === img ? 'active' : ''}`}
                 src={img.replace('&w=800', '&w=200')}
                 alt={`Thumb ${i + 1}`}
-                onClick={() => setActiveImage(img)}
+                onClick={() => { setActiveImage(img); setActiveImageError(false); }}
                 style={{
                   width: '80px',
                   height: '80px',
